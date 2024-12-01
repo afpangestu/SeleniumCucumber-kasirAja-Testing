@@ -1,53 +1,44 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.*;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class loginSteps {
+    WebDriver driver;
+
     @Given("User open Login page in the Browser")
     public void user_open_login_page_in_the_browser() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.setProperty("webdriver.chrome.driver", "C://Testing//drivers//chromedriver-win64//chromedriver.exe");
+        driver = new ChromeDriver();
+        driver.get("https://kasirdemo.vercel.app/login");
+        // full window
+        driver.manage().window().maximize();
     }
 
     @When("The login page is displayed")
     public void the_login_page_is_displayed() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        boolean status = driver.findElement(By.xpath("//div[@class='css-16in75i']")).isDisplayed();
+        Assert.assertEquals(true, status);
     }
 
-    @When("User input valid email and password")
-    public void user_input_valid_email_and_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @And("User input email and password")
+    public void user_input_email_and_password() {
+        driver.findElement(By.xpath("//input[@id='email']")).sendKeys("abah@mail.com");
+        driver.findElement(By.xpath("//input[@id='password']")).sendKeys("030123");
+
     }
 
-    @When("User click Login button")
+    @And("User click Login button")
     public void user_click_login_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        driver.findElement(By.xpath("//button[@type='submit']")).click();
     }
 
-    @Then("User successfully login")
-    public void user_successfully_login() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @When("User input invalid email and valid password")
-    public void user_input_invalid_email_and_valid_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @Then("User failed login")
-    public void user_failed_login() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
-
-    @When("User input valid email and valid password")
-    public void user_input_valid_email_and_valid_password() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("User redirected to Dashboard page")
+    public void user_redirected_to_dashboard_page() throws InterruptedException {
+        Thread.sleep(5000); // delay 5 detik
+        driver.quit();
     }
 }
